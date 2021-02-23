@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dahua.clxx.mapper.ApplyMapper">
+
+    <select id="queryApplyPage" resultType="com.dahua.clxx.pojo.ApplyVo" parameterType="Apply">
+        SELECT
+            b.user_name studentName,
+            b. NO studentNo,
+            c.user_name teacherName,
+            c.phone,
+            a.id,
+            a.student_id studentId,
+            a.teacher_id teacherId,
+            a.type,
+            a.reason,
+            a.time_leave timeLeave,
+            a.time_back timeBack,
+            a.state,
+            a.author_state authorState,
+            a.remark1,
+            a.remark2,
+            a.remark3,
+            a.remark4
+        FROM
+            clxx_apply a
+        LEFT JOIN clxx_user b ON a.student_id = b.no
+        LEFT JOIN clxx_user c ON a.teacher_id = c.no
+        where 1=1
+        <if test ="apply.teacherId != null">
+            and a.teacher_id = #{apply.teacherId}
+        </if>
+        <if test ="apply.phone != null and apply.phone !=''">
+            and c.phone LIKE CONCAT('%',#{apply.phone},'%')
+        </if>
+        <if test ="apply.studentId != null and apply.studentId !=''">
+            and a.student_id  LIKE CONCAT('%',#{apply.studentId},'%')
+        </if>
+        <if test ="apply.studentName != null and apply.studentName !=''">
+            and b.user_name LIKE CONCAT('%',#{apply.studentName},'%')
+        </if>
+        <if test ="apply.teacherName != null and apply.teacherName !=''">
+            and c.user_name LIKE CONCAT('%',#{apply.teacherName},'%')
+        </if>
+        <if test ="apply.state != null and apply.state !=''">
+            and a.state = #{apply.state}
+        </if>
+
+    </select>
+
+</mapper>

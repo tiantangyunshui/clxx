@@ -1,0 +1,106 @@
+## 设置端口
+server:
+  port: 8088
+#
+spring:
+#  rabbitmq:
+#    host: 10.35.164.230
+#    port: 5673
+#    username: test
+#    password: 7ujMko0dahua2006!
+##    username: wd
+##    password: wd
+##    publisher-confirm-type: correlated
+#    #可以确保消息在未被队列接收时返回，而不是丢弃
+#    publisher-returns: true
+#    #acknowledge-mode 消息接收确认模式 NONE 不确认 AUTO 自动确认 MANUAL 手动确认
+##    listener:
+##      simple:
+##        acknowledge-mode: manual
+#  #    template:
+##      mandatory: true
+#
+#  # 设置数据源
+  datasource:
+#    url: jdbc:mysql://10.31.21.169:3306/evo_customization_service
+    url: jdbc:mysql://172.18.11.244/card_solution
+    username: mysql
+    password: password
+    # 连接池类型
+    type: com.alibaba.druid.pool.DruidDataSource
+    # 驱动
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    # 连接池配置
+    druid:
+      # 最小数
+      min-idle: 5
+      # 最大数
+      max-active: 20
+      # 初始大小
+      initial-size: 5
+      # 配置获取连接等待超时时间
+      max-wait: 6000
+      # 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒
+      time-between-eviction-runs-millis: 60000
+      # 配置一个连接在池中最小生存时间  单位为毫秒
+      min-evictable-idle-time-millis: 300000
+      validation-query: SELECT 1 FROM DUAL
+      test-while-idle: true
+      test-on-borrow: false
+      test-on-return: false
+      # 打开 PSCache，并且指定每个连接上PSCache的大小
+      pool-prepared-statements: true
+      max-pool-prepared-statement-per-connection-size: 20
+      # 配置监控统计拦截的filters，去掉后监控界面sql无法统计，wall用于防火墙
+      filters: stat,wall
+
+# 配置mybatis
+mybatis-plus:
+  mapper-locations: classpath:mapper/**.xml
+  # 全局的映射，不用在xml文件写实体类的全路径
+  type-aliases-package: com.dahua.clxx.pojo
+  configuration:
+    # 开启驼峰映射
+    map-underscore-to-camel-case: true
+#    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+logging:
+  file:
+    name: D://log/my.log
+#    name: /Users/yky/springboot/log/my.log
+  level:
+    com:
+      dahua:
+        clxx:
+          mapper: debug
+  logback:
+    rollingpolicy:
+      max-history: 3
+      max-file-size: 10KB
+#8900 ip地址
+dssIp: 172.18.11.244
+
+# 不校验token的白名单
+white:
+  list:
+    - /swagger-ui.html
+    - /swagger-resources/**
+    - /v2/api-docs
+    - /webjars/**
+    - /csrf
+    - /favicon.ico
+    - /login
+
+#token的有效期 单位秒（s）
+used: 3600
+#used: 86400
+
+#清理失效token定时任务
+tokenCron: 0 0 0/1 * * ?
+
+#my:
+#  users:
+#    - name: 大李
+#      age: 100
+#    - name: 小刘
+#      age: 200

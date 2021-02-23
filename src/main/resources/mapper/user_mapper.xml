@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dahua.clxx.mapper.UserMapper">
+
+    <select id="getStudent" resultType="com.dahua.clxx.pojo.Person" parameterType="java.lang.String">
+        SELECT
+            a.id,
+            a. NO,
+            a.user_name NAME,
+            a.phone,
+            b.COMPRESS_PHOTO_PATH faceImg
+        FROM
+            clxx_user a
+        LEFT JOIN card_person_photo b ON a. NO = b.PERSON_ID
+        WHERE
+            a.NO LIKE CONCAT('%',#{no},'%')
+    </select>
+
+</mapper>
