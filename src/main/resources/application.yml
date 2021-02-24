@@ -77,8 +77,10 @@ logging:
     rollingpolicy:
       max-history: 3
       max-file-size: 10KB
-#8900 ip地址
+#8900 ip地址 用户名 密码
 dssIp: 172.18.11.244
+dssName: system
+dssPassword: dahua2006
 
 # 不校验token的白名单
 white:

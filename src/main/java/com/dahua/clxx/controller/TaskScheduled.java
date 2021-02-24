@@ -23,14 +23,21 @@ public class TaskScheduled {
      * 添加门禁权限定时任务
      */
     public void addPrivilige(){
-
+        cardPersonService.addPrivilige();
     }
 
     /**
      * 移除门禁权限定时任务
      */
     public void removePrivilige(){
-
+        cardPersonService.removePrivilige();
     }
 
+    /**
+     * 刷新dss Token定时任务
+     */
+    @Scheduled(fixedRate = 7200000)
+    public void refreshDssToken() {
+        cardPersonService.refreshDssToken();
+    }
 }

@@ -32,7 +32,7 @@
         <if test ="apply.phone != null and apply.phone !=''">
             and c.phone LIKE CONCAT('%',#{apply.phone},'%')
         </if>
-        <if test ="apply.studentId != null and apply.studentId !=''">
+        <if test ="apply.studentId != null">
             and a.student_id  LIKE CONCAT('%',#{apply.studentId},'%')
         </if>
         <if test ="apply.studentName != null and apply.studentName !=''">
@@ -44,7 +44,12 @@
         <if test ="apply.state != null and apply.state !=''">
             and a.state = #{apply.state}
         </if>
-
+        <if test ="apply.timeLeave != null and apply.timeLeave !=''">
+            and DATE_FORMAT(a.time_leave,'%Y-%m-%d') = #{apply.timeLeave}
+        </if>
+        <if test ="apply.timeBack != null and apply.timeBack !=''">
+            and DATE_FORMAT(a.time_back,'%Y-%m-%d') = #{apply.timeBack}
+        </if>
     </select>
 
 </mapper>

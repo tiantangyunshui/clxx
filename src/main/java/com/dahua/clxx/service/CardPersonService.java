@@ -12,4 +12,20 @@ public interface CardPersonService {
      * 修改人脸照片
      */
     boolean updFaceImg(PersonFaceImgDto personFaceDto);
+
+    /**
+     * 添加权限
+     */
+    void addPrivilige();
+
+    /**
+     * 删除权限
+     */
+    void removePrivilige();
+
+    /**
+     * 获取dssToken
+     */
+    void refreshDssToken();
+
 }
