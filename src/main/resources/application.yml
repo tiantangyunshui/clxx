@@ -67,7 +67,7 @@ mybatis-plus:
 logging:
   file:
     name: D://log/my.log
-#    name: /Users/yky/springboot/log/my.log
+#    name: /log/clxx/xlxx.log
   level:
     com:
       dahua:
@@ -76,7 +76,7 @@ logging:
   logback:
     rollingpolicy:
       max-history: 3
-      max-file-size: 10KB
+      max-file-size: 50000KB
 #8900 ip地址 用户名 密码
 dssIp: 172.18.11.244
 dssName: system
@@ -99,10 +99,3 @@ used: 3600
 
 #清理失效token定时任务
 tokenCron: 0 0 0/1 * * ?
-
-#my:
-#  users:
-#    - name: 大李
-#      age: 100
-#    - name: 小刘
-#      age: 200

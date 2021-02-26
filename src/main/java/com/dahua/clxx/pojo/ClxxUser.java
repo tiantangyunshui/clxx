@@ -6,7 +6,7 @@ import lombok.Data;
 
 @Data
 @TableName("clxx_user")
-public class User extends Model<User> {
+public class ClxxUser extends Model<ClxxUser> {
     private long id;
     private String no;
     private String userName;

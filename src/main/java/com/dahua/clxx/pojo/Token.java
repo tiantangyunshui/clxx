@@ -9,6 +9,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Token {
     private String token;
-    private User user;
+    private ClxxUser user;
     private long time;
 }

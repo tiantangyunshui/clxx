@@ -1,21 +1,22 @@
 package com.dahua.clxx.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.dahua.clxx.pojo.Apply;
+import com.dahua.clxx.pojo.ClxxApply;
 import com.dahua.clxx.pojo.ApplyStateDto;
 import com.dahua.clxx.pojo.ApplyVo;
+import com.dahua.clxx.pojo.ClxxApplyDto;
 
 public interface ApplyService {
 
     /**
      * 申请列表查询
      */
-    IPage<ApplyVo> queryApplyPage(Apply apply, int page, int size);
+    IPage<ApplyVo> queryApplyPage(ClxxApplyDto apply, int page, int size);
 
     /**
      * 添加申请
      */
-    void addApply(Apply apply);
+    void addApply(ClxxApplyDto apply);
 
     /**
      * 申请状态修改

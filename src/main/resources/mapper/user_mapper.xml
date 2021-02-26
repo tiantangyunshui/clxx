@@ -16,4 +16,13 @@
             a.NO LIKE CONCAT('%',#{no},'%')
     </select>
 
+    <select id="getCard" resultType="com.dahua.clxx.pojo.PersonCard">
+        select card_number,person_id
+        from card_card
+        where person_id in
+        <foreach collection="list" item="personId" index="index" open="(" close=")" separator=",">
+            #{personId}
+        </foreach>
+    </select>
+
 </mapper>

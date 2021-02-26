@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dahua.clxx.mapper.ApplyMapper">
 
-    <select id="queryApplyPage" resultType="com.dahua.clxx.pojo.ApplyVo" parameterType="Apply">
+    <select id="queryApplyPage" resultType="com.dahua.clxx.pojo.ApplyVo" parameterType="com.dahua.clxx.pojo.ClxxApplyDto">
         SELECT
             b.user_name studentName,
             b. NO studentNo,
@@ -26,29 +26,29 @@
         LEFT JOIN clxx_user b ON a.student_id = b.no
         LEFT JOIN clxx_user c ON a.teacher_id = c.no
         where 1=1
-        <if test ="apply.teacherId != null">
-            and a.teacher_id = #{apply.teacherId}
+        <if test ="clxxApply.teacherId != null">
+            and a.teacher_id = #{clxxApply.teacherId}
         </if>
-        <if test ="apply.phone != null and apply.phone !=''">
-            and c.phone LIKE CONCAT('%',#{apply.phone},'%')
+        <if test ="clxxApply.phone != null and clxxApply.phone !=''">
+            and c.phone LIKE CONCAT('%',#{clxxApply.phone},'%')
         </if>
-        <if test ="apply.studentId != null">
-            and a.student_id  LIKE CONCAT('%',#{apply.studentId},'%')
+        <if test ="clxxApply.studentId != null">
+            and a.student_id  LIKE CONCAT('%',#{clxxApply.studentId},'%')
         </if>
-        <if test ="apply.studentName != null and apply.studentName !=''">
-            and b.user_name LIKE CONCAT('%',#{apply.studentName},'%')
+        <if test ="clxxApply.studentName != null and clxxApply.studentName !=''">
+            and b.user_name LIKE CONCAT('%',#{clxxApply.studentName},'%')
         </if>
-        <if test ="apply.teacherName != null and apply.teacherName !=''">
-            and c.user_name LIKE CONCAT('%',#{apply.teacherName},'%')
+        <if test ="clxxApply.teacherName != null and clxxApply.teacherName !=''">
+            and c.user_name LIKE CONCAT('%',#{clxxApply.teacherName},'%')
         </if>
-        <if test ="apply.state != null and apply.state !=''">
-            and a.state = #{apply.state}
+        <if test ="clxxApply.state != null and clxxApply.state !=''">
+            and a.state = #{clxxApply.state}
         </if>
-        <if test ="apply.timeLeave != null and apply.timeLeave !=''">
-            and DATE_FORMAT(a.time_leave,'%Y-%m-%d') = #{apply.timeLeave}
+        <if test ="clxxApply.timeLeave != null and clxxApply.timeLeave !=''">
+            and DATE_FORMAT(a.time_leave,'%Y-%m-%d') = #{clxxApply.timeLeave}
         </if>
-        <if test ="apply.timeBack != null and apply.timeBack !=''">
-            and DATE_FORMAT(a.time_back,'%Y-%m-%d') = #{apply.timeBack}
+        <if test ="clxxApply.timeBack != null and clxxApply.timeBack !=''">
+            and DATE_FORMAT(a.time_back,'%Y-%m-%d') = #{clxxApply.timeBack}
         </if>
     </select>
 

@@ -3,13 +3,13 @@ package com.dahua.clxx.mapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.dahua.clxx.pojo.Apply;
+import com.dahua.clxx.pojo.ClxxApply;
 import com.dahua.clxx.pojo.ApplyVo;
+import com.dahua.clxx.pojo.ClxxApplyDto;
 import org.apache.ibatis.annotations.Param;
-import java.util.List;
 
-public interface ApplyMapper extends BaseMapper<Apply> {
+public interface ApplyMapper extends BaseMapper<ClxxApply> {
 
-    IPage<ApplyVo> queryApplyPage(Page<Apply> page, @Param("apply")Apply apply);
+    IPage<ApplyVo> queryApplyPage(Page<ClxxApplyDto> page, @Param("clxxApply") ClxxApplyDto apply);
 
 }

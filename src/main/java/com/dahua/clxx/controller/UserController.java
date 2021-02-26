@@ -1,7 +1,7 @@
 package com.dahua.clxx.controller;
 
 import com.dahua.clxx.pojo.Person;
-import com.dahua.clxx.pojo.User;
+import com.dahua.clxx.pojo.ClxxUser;
 import com.dahua.clxx.service.UserService;
 import io.swagger.annotations.ApiParam;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,7 +19,7 @@ public class UserController {
     private UserService userService;
 
     @RequestMapping(value = "/teacher", method = RequestMethod.GET)
-    private List<User> getTeacher(@ApiParam(value = "手机号" , required=true )@RequestParam("phone") String phone){
+    private List<ClxxUser> getTeacher(@ApiParam(value = "手机号" , required=true )@RequestParam("phone") String phone){
         return userService.getTeacher(phone);
     }
     @RequestMapping(value = "/student", method = RequestMethod.GET)

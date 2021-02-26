@@ -14,6 +14,11 @@ public interface CardPersonService {
     boolean updFaceImg(PersonFaceImgDto personFaceDto);
 
     /**
+     * 获取dssToken
+     */
+    void refreshDssToken();
+
+    /**
      * 添加权限
      */
     void addPrivilige();
@@ -22,10 +27,5 @@ public interface CardPersonService {
      * 删除权限
      */
     void removePrivilige();
-
-    /**
-     * 获取dssToken
-     */
-    void refreshDssToken();
 
 }

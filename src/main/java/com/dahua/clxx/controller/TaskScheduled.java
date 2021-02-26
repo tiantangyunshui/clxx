@@ -36,7 +36,7 @@ public class TaskScheduled {
     /**
      * 刷新dss Token定时任务
      */
-    @Scheduled(fixedRate = 7200000)
+//    @Scheduled(fixedRate = 7200000)
     public void refreshDssToken() {
         cardPersonService.refreshDssToken();
     }

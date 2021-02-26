@@ -7,7 +7,7 @@ import com.dahua.clxx.exception.BusinessRuntimeException;
 import com.dahua.clxx.mapper.UserMapper;
 import com.dahua.clxx.pojo.Person;
 import com.dahua.clxx.pojo.Token;
-import com.dahua.clxx.pojo.User;
+import com.dahua.clxx.pojo.ClxxUser;
 import com.dahua.clxx.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -23,7 +23,7 @@ public class UserServiceImpl implements UserService {
     private UserMapper userMapper;
 
     @Override
-    public List<User> queryUser(User user) {
+    public List<ClxxUser> queryUser(ClxxUser user) {
         return null;
     }
 
@@ -32,15 +32,15 @@ public class UserServiceImpl implements UserService {
         if (name == null || "".equals(name) || pwd == null || "".equals(pwd)) {
             throw new BusinessRuntimeException("500", "用户名密码不能为空");
         }
-        Wrapper<User> wrapper = Wrappers.<User>lambdaQuery().eq(User::getNo, name).or().eq(User::getUserName, name);
-        List<User> ll = userMapper.selectList(wrapper);
+        Wrapper<ClxxUser> wrapper = Wrappers.<ClxxUser>lambdaQuery().eq(ClxxUser::getNo, name).or().eq(ClxxUser::getUserName, name);
+        List<ClxxUser> ll = userMapper.selectList(wrapper);
         if (ll.size() == 0) {
             throw new BusinessRuntimeException("500", "用户不存在");
         }
         if(!pwd.equals(ll.get(0).getPassword())){
             throw new BusinessRuntimeException("500", "密码不正确");
         }
-        User user = ll.get(0);
+        ClxxUser user = ll.get(0);
         user.setPassword(null);
         String token = UUID.randomUUID().toString().replaceAll("-","");
         Token t = new Token(token,user,System.currentTimeMillis());
@@ -49,10 +49,10 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> getTeacher(String phone) {
-        Wrapper wrapper = Wrappers.<User>lambdaQuery().like(User::getPhone,phone);
-        List<User> ll = userMapper.selectList(wrapper);
-        for (User user : ll) {
+    public List<ClxxUser> getTeacher(String phone) {
+        Wrapper wrapper = Wrappers.<ClxxUser>lambdaQuery().like(ClxxUser::getPhone,phone);
+        List<ClxxUser> ll = userMapper.selectList(wrapper);
+        for (ClxxUser user : ll) {
             user.setPassword(null);
         }
         return ll;

@@ -2,10 +2,12 @@ package com.dahua.clxx.exception;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 /**
  * 自定义业务异常
  */
+@EqualsAndHashCode(callSuper = true)
 @Data
 @AllArgsConstructor
 public class BusinessRuntimeException extends RuntimeException {
