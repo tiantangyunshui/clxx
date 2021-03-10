@@ -25,5 +25,5 @@ public interface UserService {
     /**
      * 获取学生信息
      */
-    List<Person> getStudent(String no);
+    Person getStudentByToken(String Token);
 }

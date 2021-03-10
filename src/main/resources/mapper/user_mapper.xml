@@ -8,6 +8,7 @@
             a. NO,
             a.user_name NAME,
             a.phone,
+            a.type,
             b.COMPRESS_PHOTO_PATH faceImg
         FROM
             clxx_user a

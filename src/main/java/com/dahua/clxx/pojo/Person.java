@@ -8,5 +8,6 @@ public class Person {
     private String no;
     private String name;
     private String phone;
+    private String type;
     private String faceImg;
 }

@@ -10,6 +10,7 @@ import com.dahua.clxx.pojo.Token;
 import com.dahua.clxx.pojo.ClxxUser;
 import com.dahua.clxx.service.UserService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.util.List;
@@ -22,6 +23,9 @@ public class UserServiceImpl implements UserService {
     @Resource
     private UserMapper userMapper;
 
+    @Value("${dssIp}")
+    private String dssIp;
+
     @Override
     public List<ClxxUser> queryUser(ClxxUser user) {
         return null;
@@ -30,15 +34,15 @@ public class UserServiceImpl implements UserService {
     @Override
     public Token login(String name, String pwd) {
         if (name == null || "".equals(name) || pwd == null || "".equals(pwd)) {
-            throw new BusinessRuntimeException("500", "用户名密码不能为空");
+            throw new BusinessRuntimeException(500, "用户名密码不能为空");
         }
-        Wrapper<ClxxUser> wrapper = Wrappers.<ClxxUser>lambdaQuery().eq(ClxxUser::getNo, name).or().eq(ClxxUser::getUserName, name);
+        Wrapper<ClxxUser> wrapper = Wrappers.<ClxxUser>lambdaQuery().eq(ClxxUser::getPhone, name).or().eq(ClxxUser::getUserName, name);
         List<ClxxUser> ll = userMapper.selectList(wrapper);
         if (ll.size() == 0) {
-            throw new BusinessRuntimeException("500", "用户不存在");
+            throw new BusinessRuntimeException(500, "用户不存在");
         }
         if(!pwd.equals(ll.get(0).getPassword())){
-            throw new BusinessRuntimeException("500", "密码不正确");
+            throw new BusinessRuntimeException(500, "密码不正确");
         }
         ClxxUser user = ll.get(0);
         user.setPassword(null);
@@ -59,7 +63,19 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<Person> getStudent(String no) {
-        return userMapper.getStudent(no);
+    public Person getStudentByToken(String token) {
+        Token t = TokenMap.map.get(token);
+        if(t != null){
+            List<Person> list = userMapper.getStudent(t.getUser().getNo());
+            if(list.size()>0){
+                Person person = list.get(0);
+                person.setFaceImg(person.getFaceImg().replace("serverIp",dssIp));
+                return person;
+            }else {
+                throw new BusinessRuntimeException(500, "用户不存在");
+            }
+        }else {
+            throw new BusinessRuntimeException(401, "token失效");
+        }
     }
 }

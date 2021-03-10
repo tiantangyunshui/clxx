@@ -18,7 +18,7 @@ public class LoginInterceptor implements HandlerInterceptor{
 		if(token!=null && TokenMap.map.containsKey(token)){
 			return true;
 		}else {
-			throw new BusinessRuntimeException("401","未授权");
+			throw new BusinessRuntimeException(401,"未授权");
 		}
 	}
 }

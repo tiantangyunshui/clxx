@@ -14,7 +14,7 @@ public class BusinessRuntimeException extends RuntimeException {
     /**
      * 结果码
      */
-    private String code = "200";
+    private int code = 200;
 
     /**
      * 结果码描述

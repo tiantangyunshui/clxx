@@ -1,5 +1,8 @@
 package com.dahua.clxx.controller;
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
+import com.dahua.clxx.config.Result;
 import com.dahua.clxx.pojo.Person;
 import com.dahua.clxx.pojo.ClxxUser;
 import com.dahua.clxx.service.UserService;
@@ -9,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @RestController
@@ -19,12 +23,15 @@ public class UserController {
     private UserService userService;
 
     @RequestMapping(value = "/teacher", method = RequestMethod.GET)
-    private List<ClxxUser> getTeacher(@ApiParam(value = "手机号" , required=true )@RequestParam("phone") String phone){
-        return userService.getTeacher(phone);
+    private Result<List<ClxxUser>> getTeacher(@ApiParam(value = "手机号" , required=true )@RequestParam("phone") String phone){
+        return new Result<>(userService.getTeacher(phone));
     }
     @RequestMapping(value = "/student", method = RequestMethod.GET)
-    private List<Person> getStudent(@ApiParam(value = "学号" , required=true )@RequestParam("no") String no){
-        return userService.getStudent(no);
+    private Result<JSONObject> getStudent(HttpServletRequest request){
+        JSONObject obj = new JSONObject();
+        obj.put("roles",new String[]{"admin"});
+        obj.put("user",userService.getStudentByToken(request.getHeader("token")));
+        return new Result<>(obj);
     }
 
 }

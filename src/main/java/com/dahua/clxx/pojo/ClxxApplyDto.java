@@ -7,7 +7,6 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 @Data
-//@TableName("clxx_apply")
 @ApiModel("申请表")
 public class ClxxApplyDto extends ClxxApply {
     @ApiModelProperty("学生姓名")
@@ -18,4 +17,6 @@ public class ClxxApplyDto extends ClxxApply {
     private String phone;
     @ApiModelProperty("人脸图片base64")
     private String base64file;
+    @ApiModelProperty("已审核")
+    private String stateNull;
 }

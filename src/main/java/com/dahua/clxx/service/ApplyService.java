@@ -22,4 +22,9 @@ public interface ApplyService {
      * 申请状态修改
      */
     void updApply(ApplyStateDto apply);
+
+    /**
+     * 申请详情
+     */
+    ApplyVo queryApplyPage(Long id);
 }

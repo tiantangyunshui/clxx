@@ -23,7 +23,7 @@ spring:
 #  # 设置数据源
   datasource:
 #    url: jdbc:mysql://10.31.21.169:3306/evo_customization_service
-    url: jdbc:mysql://172.18.11.243/card_solution
+    url: jdbc:mysql://172.18.11.248/card_solution
     username: mysql
     password: password
     # 连接池类型
@@ -66,8 +66,8 @@ mybatis-plus:
 
 logging:
   file:
-    name: D://log/my.log
-#    name: /log/clxx/xlxx.log
+#    name: D://log/my.log
+    name: /log/clxx/xlxx.log
   level:
     com:
       dahua:
@@ -78,7 +78,7 @@ logging:
       max-history: 3
       max-file-size: 50000KB
 #8900 ip地址 用户名 密码
-dssIp: 172.18.11.243
+dssIp: 172.18.11.248
 dssName: system
 dssPassword: dahua2006
 
@@ -92,6 +92,7 @@ white:
     - /csrf
     - /favicon.ico
     - /login
+    - /apply/list
 
 #token的有效期 单位秒（s）
 used: 3600
