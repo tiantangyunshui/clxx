@@ -1,15 +1,22 @@
 package com.dahua.clxx.service.impl;
 
+import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.dahua.clxx.exception.BusinessRuntimeException;
+import com.dahua.clxx.exception.ErrorUtil;
 import com.dahua.clxx.mapper.ApplyMapper;
 import com.dahua.clxx.pojo.*;
 import com.dahua.clxx.service.ApplyService;
 import com.dahua.clxx.service.CardPersonService;
+import com.dahua.clxx.util.ExportUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletResponse;
+import java.io.OutputStream;
+import java.text.DateFormat;
+import java.util.*;
 
 @Slf4j
 @Service
@@ -40,6 +47,8 @@ public class ApplyServiceImpl implements ApplyService {
             img.setBase64file(apply.getBase64file());
             cardPersonService.updFaceImg(img);
         }
+        apply.setState("0");
+        apply.setCreateTime(DateFormat.getDateTimeInstance().format(new Date()));
         applyMapper.insert(apply);
     }
 
@@ -60,5 +69,42 @@ public class ApplyServiceImpl implements ApplyService {
             throw new BusinessRuntimeException(500, "数据不存在");
         }
         return page.getRecords().get(0);
+    }
+
+    @Override
+    public void export(String ids, HttpServletResponse response) {
+        Map<String,String> map = new HashMap<>();
+        map.put("0","未审核");
+        map.put("1","通过");
+        map.put("2","不通过");
+        Map<String,String> map2 = new HashMap<>();
+        map2.put("0","未下发");
+        map2.put("1","下发成功");
+        map2.put("2","下发失败");
+        String fName = "审批导出";
+        List<String> csvList = new ArrayList<>();
+        ClxxApplyDto apply = new ClxxApplyDto();
+        apply.setIds(ids);
+        List<ApplyVo> list = applyMapper.queryApplyPage(new Page<>(1, 500), apply).getRecords();
+        log.info("导出的数据：{}", JSON.toJSON(list));
+        csvList.add("序号,申请学生学号,申请学生姓名,审批教师姓名,审批教师手机号,外出/返校,出校/返校时间,回校/离校时间,审批结果,权限下发状态");
+        for (ApplyVo vo : list) {
+            csvList.add(vo.getIndex()+","
+                +vo.getStudentNo()+","
+                +vo.getStudentName()+","
+                +vo.getTeacherName()+","
+                +vo.getPhone()+","
+                +("0".equals(vo.getType())?"外出":"返校")+","
+                +vo.getTimeLeave()+","
+                +vo.getTimeBack()+","
+                +map.get(vo.getState())+","
+                +map2.get(vo.getAuthorState()));
+        }
+        try (final OutputStream os = response.getOutputStream()) {
+            ExportUtil.responseSetProperties(fName, response);
+            ExportUtil.doExport(csvList, os);
+        } catch (Exception e) {
+            log.error("生成csv文件失败:{}", ErrorUtil.err(e));
+        }
     }
 }

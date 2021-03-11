@@ -8,6 +8,7 @@
             b. NO studentNo,
             c.user_name teacherName,
             c.phone,
+            a.`index`,
             a.id,
             a.student_id studentId,
             a.teacher_id teacherId,
@@ -17,17 +18,32 @@
             a.time_back timeBack,
             a.state,
             a.author_state authorState,
+            DATE_FORMAT(
+            a.create_time,
+            '%Y-%m-%d %H:%i:%S'
+            ) createTime,
             a.remark1,
             a.remark2,
             a.remark3,
             a.remark4
-        FROM
-            clxx_apply a
-        LEFT JOIN clxx_user b ON a.student_id = b.no
-        LEFT JOIN clxx_user c ON a.teacher_id = c.no
+        FROM(
+            SELECT
+                @num :=@num + 1 AS `index`,
+                t.*
+            FROM
+                clxx_apply t,
+                (SELECT @num := 0) r
+            ORDER BY
+                create_time DESC
+        ) a
+        LEFT JOIN clxx_user b ON a.student_id = b. NO
+        LEFT JOIN clxx_user c ON a.teacher_id = c. NO
         where 1=1
         <if test ="clxxApply.id != null">
             and a.id = #{clxxApply.id}
+        </if>
+        <if test ="clxxApply.ids != null">
+            and a.id in (${clxxApply.ids})
         </if>
         <if test ="clxxApply.teacherId != null">
             and a.teacher_id = #{clxxApply.teacherId}
@@ -56,6 +72,10 @@
         <if test ="clxxApply.timeBack != null and clxxApply.timeBack !=''">
             and DATE_FORMAT(a.time_back,'%Y-%m-%d') = #{clxxApply.timeBack}
         </if>
+        <if test ="clxxApply.yearMonth != null and clxxApply.yearMonth !=''">
+            and DATE_FORMAT(a.create_time,'%Y-%m') = #{clxxApply.yearMonth}
+        </if>
+        order by a.create_time desc
     </select>
 
 </mapper>

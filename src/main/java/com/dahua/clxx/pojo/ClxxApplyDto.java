@@ -7,10 +7,12 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 @Data
-@ApiModel("申请表")
+@ApiModel("申请表Dto")
 public class ClxxApplyDto extends ClxxApply {
     @ApiModelProperty("学生姓名")
     private String studentName;
+    @ApiModelProperty("ids")
+    private String ids;
     @ApiModelProperty("教师姓名")
     private String teacherName;
     @ApiModelProperty("教师手机号")
@@ -19,4 +21,6 @@ public class ClxxApplyDto extends ClxxApply {
     private String base64file;
     @ApiModelProperty("已审核")
     private String stateNull;
+    @ApiModelProperty("年月(YYYY-MM)")
+    private String yearMonth;
 }

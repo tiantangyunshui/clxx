@@ -6,6 +6,8 @@ import com.dahua.clxx.pojo.ApplyStateDto;
 import com.dahua.clxx.pojo.ApplyVo;
 import com.dahua.clxx.pojo.ClxxApplyDto;
 
+import javax.servlet.http.HttpServletResponse;
+
 public interface ApplyService {
 
     /**
@@ -27,4 +29,9 @@ public interface ApplyService {
      * 申请详情
      */
     ApplyVo queryApplyPage(Long id);
+
+    /**
+     * 导出
+     */
+    void export(String ids, HttpServletResponse response);
 }

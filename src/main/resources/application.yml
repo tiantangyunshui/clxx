@@ -93,6 +93,7 @@ white:
     - /favicon.ico
     - /login
     - /apply/list
+    - /apply/export
 
 #token的有效期 单位秒（s）
 used: 3600

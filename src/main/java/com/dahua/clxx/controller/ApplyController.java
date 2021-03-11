@@ -9,6 +9,7 @@ import io.swagger.annotations.ApiParam;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletResponse;
 
 /* 类注解 */
 @Api(value = "申请表")
@@ -40,6 +41,12 @@ public class ApplyController {
     public Result<String> updApply(@RequestBody ApplyStateDto apply){
         applyService.updApply(apply);
         return new Result<>("");
+    }
+
+    @GetMapping("/export")
+    public Result<String> download(@ApiParam(value = "需要导出的id(多个id用\",\"分隔)" , required=true )@RequestParam("ids") String ids,HttpServletResponse response) {
+        applyService.export(ids,response);
+        return new Result<>("报错",500);
     }
 
 }

@@ -25,9 +25,11 @@ public class ClxxApply extends Model<ClxxApply> {
     @ApiModelProperty("返校时间")
     private String timeBack;
     @ApiModelProperty("状态:0未审核1通过2不通过3已审核")
-    private String state = "0";
+    private String state;
     @ApiModelProperty("权限下发状态:0未下发，1下发成功，2下发失败")
     private String authorState;
+    @ApiModelProperty("创建时间")
+    private String createTime;
     @ApiModelProperty("我承诺上述填写内容真实，准确，无误！0:false,1:true")
     private String remark1;
     @ApiModelProperty("近14天内无境内外中高风险区域居住史0:false,1:true")

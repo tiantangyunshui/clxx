@@ -1,26 +1,18 @@
 package com.dahua.clxx.pojo;
 
-import com.baomidou.mybatisplus.annotation.TableName;
-import com.baomidou.mybatisplus.extension.activerecord.Model;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 @Data
-public class ApplyVo {
-    private long id;
-    private long studentId;
-    private long teacherId;
-    private String type;
-    private String reason;
-    private String timeLeave;
-    private String timeBack;
-    private String state;
-    private String authorState;
-    private String remark1;
-    private String remark2;
-    private String remark3;
-    private String remark4;
+public class ApplyVo extends ClxxApply {
+    @ApiModelProperty("序号")
+    private int index;
+    @ApiModelProperty("学生姓名")
     private String studentName;
+    @ApiModelProperty("教师姓名")
     private String teacherName;
+    @ApiModelProperty("学号")
     private String studentNo;
+    @ApiModelProperty("手机号")
     private String phone;
 }
