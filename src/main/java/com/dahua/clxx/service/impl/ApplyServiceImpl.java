@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 import java.io.OutputStream;
-import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Slf4j
@@ -56,7 +56,9 @@ public class ApplyServiceImpl implements ApplyService {
             cardPersonService.updFaceImg(img);
         }
         apply.setState("0");
-        apply.setCreateTime(DateFormat.getDateTimeInstance().format(new Date()));
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        sdf.setTimeZone(TimeZone.getTimeZone("Asia/Shanghai"));
+        apply.setCreateTime(sdf.format(new Date()));
         applyMapper.insert(apply);
     }
 
