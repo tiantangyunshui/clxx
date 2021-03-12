@@ -36,7 +36,7 @@ public class UserServiceImpl implements UserService {
         if (name == null || "".equals(name) || pwd == null || "".equals(pwd)) {
             throw new BusinessRuntimeException(500, "用户名密码不能为空");
         }
-        Wrapper<ClxxUser> wrapper = Wrappers.<ClxxUser>lambdaQuery().eq(ClxxUser::getPhone, name).or().eq(ClxxUser::getUserName, name);
+        Wrapper<ClxxUser> wrapper = Wrappers.<ClxxUser>lambdaQuery().eq(ClxxUser::getPhone, name).or().eq(ClxxUser::getUserName, name).or().eq(ClxxUser::getNo,name);
         List<ClxxUser> ll = userMapper.selectList(wrapper);
         if (ll.size() == 0) {
             throw new BusinessRuntimeException(500, "用户不存在");

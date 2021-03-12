@@ -73,7 +73,7 @@
             and DATE_FORMAT(a.time_back,'%Y-%m-%d') = #{clxxApply.timeBack}
         </if>
         <if test ="clxxApply.yearMonth != null and clxxApply.yearMonth !=''">
-            and DATE_FORMAT(a.create_time,'%Y-%m') = #{clxxApply.yearMonth}
+            and DATE_FORMAT(a.time_leave,'%Y-%m') = #{clxxApply.yearMonth}
         </if>
         order by a.create_time desc
     </select>
