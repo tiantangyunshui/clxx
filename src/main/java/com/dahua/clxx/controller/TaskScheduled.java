@@ -22,6 +22,7 @@ public class TaskScheduled {
     /**
      * 添加门禁权限定时任务
      */
+    @Scheduled(cron = "${addPriviligeCron}")
     public void addPrivilige(){
         cardPersonService.addPrivilige();
     }
@@ -29,6 +30,7 @@ public class TaskScheduled {
     /**
      * 移除门禁权限定时任务
      */
+    @Scheduled(cron = "${removePriviligeCron}")
     public void removePrivilige(){
         cardPersonService.removePrivilige();
     }
@@ -36,7 +38,7 @@ public class TaskScheduled {
     /**
      * 刷新dss Token定时任务
      */
-//    @Scheduled(fixedRate = 7200000)
+    @Scheduled(fixedRate = 7200000)
     public void refreshDssToken() {
         cardPersonService.refreshDssToken();
     }
