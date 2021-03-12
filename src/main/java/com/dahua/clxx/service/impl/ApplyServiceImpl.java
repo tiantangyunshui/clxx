@@ -35,7 +35,15 @@ public class ApplyServiceImpl implements ApplyService {
             apply.setState(null);
             apply.setStateNull("0");
         }
-        return applyMapper.queryApplyPage(new Page<>(page, size), apply);
+        IPage<ApplyVo> result = applyMapper.queryApplyPage(new Page<>(page, size), apply);
+        for (ApplyVo record : result.getRecords()) {
+            if("1".equals(record.getType())){
+                String temp = record.getTimeBack();
+                record.setTimeBack(record.getTimeLeave());
+                record.setTimeLeave(temp);
+            }
+        }
+        return result;
     }
 
     @Override
@@ -89,6 +97,11 @@ public class ApplyServiceImpl implements ApplyService {
         log.info("导出的数据：{}", JSON.toJSON(list));
         csvList.add("序号,申请学生学号,申请学生姓名,审批教师姓名,审批教师手机号,外出/返校,出校/返校时间,回校/离校时间,审批结果,权限下发状态");
         for (ApplyVo vo : list) {
+            if("1".equals(vo.getType())){
+                String temp = vo.getTimeBack();
+                vo.setTimeBack(vo.getTimeLeave());
+                vo.setTimeLeave(temp);
+            }
             csvList.add(vo.getIndex()+","
                 +vo.getStudentNo()+","
                 +vo.getStudentName()+","
