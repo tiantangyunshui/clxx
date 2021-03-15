@@ -10,7 +10,7 @@ import lombok.Data;
 @ApiModel("申请表状态")
 public class ApplyStateDto {
     @ApiModelProperty("ID")
-    private Long id;
+    private String id;
     @ApiModelProperty("状态:0未审核1通过2不通过")
     private String state;
 }

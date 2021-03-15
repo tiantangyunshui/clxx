@@ -9,7 +9,7 @@
             a.user_name NAME,
             a.phone,
             a.type,
-            b.COMPRESS_PHOTO_PATH faceImg
+            b.face_path faceImg
         FROM
             clxx_user a
         LEFT JOIN card_person_photo b ON a. NO = b.PERSON_ID

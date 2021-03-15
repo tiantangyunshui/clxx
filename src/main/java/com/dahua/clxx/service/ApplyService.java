@@ -28,7 +28,7 @@ public interface ApplyService {
     /**
      * 申请详情
      */
-    ApplyVo queryApplyPage(Long id);
+    ApplyVo queryApplyPage(String id);
 
     /**
      * 导出

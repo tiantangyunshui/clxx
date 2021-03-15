@@ -69,7 +69,9 @@ public class UserServiceImpl implements UserService {
             List<Person> list = userMapper.getStudent(t.getUser().getNo());
             if(list.size()>0){
                 Person person = list.get(0);
-                person.setFaceImg(person.getFaceImg().replace("serverIp",dssIp));
+                if(person.getFaceImg() != null){
+                    person.setFaceImg(person.getFaceImg().replace("serverIp",dssIp));
+                }
                 return person;
             }else {
                 throw new BusinessRuntimeException(500, "用户不存在");

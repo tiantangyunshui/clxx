@@ -15,7 +15,6 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 import java.io.OutputStream;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Slf4j
@@ -56,9 +55,9 @@ public class ApplyServiceImpl implements ApplyService {
             cardPersonService.updFaceImg(img);
         }
         apply.setState("0");
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        sdf.setTimeZone(TimeZone.getTimeZone("Asia/Shanghai"));
-        apply.setCreateTime(sdf.format(new Date()));
+//        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//        sdf.setTimeZone(TimeZone.getTimeZone("Asia/Shanghai"));
+//        apply.setCreateTime(sdf.format(new Date()));
         applyMapper.insert(apply);
     }
 
@@ -71,7 +70,7 @@ public class ApplyServiceImpl implements ApplyService {
     }
 
     @Override
-    public ApplyVo queryApplyPage(Long id) {
+    public ApplyVo queryApplyPage(String id) {
         ClxxApplyDto apply = new ClxxApplyDto();
         apply.setId(id);
         IPage<ApplyVo> page = applyMapper.queryApplyPage(new Page<>(1, 1), apply);

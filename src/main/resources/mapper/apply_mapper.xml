@@ -52,7 +52,7 @@
             and c.phone LIKE CONCAT('%',#{clxxApply.phone},'%')
         </if>
         <if test ="clxxApply.studentId != null">
-            and a.student_id  LIKE CONCAT('%',#{clxxApply.studentId},'%')
+            and a.student_id  = #{clxxApply.studentId}
         </if>
         <if test ="clxxApply.studentName != null and clxxApply.studentName !=''">
             and b.user_name LIKE CONCAT('%',#{clxxApply.studentName},'%')
@@ -64,7 +64,7 @@
             and a.state = #{clxxApply.state}
         </if>
         <if test ="clxxApply.type != null and clxxApply.type !=''">
-            and a.state = #{clxxApply.type}
+            and a.type = #{clxxApply.type}
         </if>
         <if test ="clxxApply.stateNull != null and clxxApply.stateNull !=''">
             and a.state != #{clxxApply.stateNull}

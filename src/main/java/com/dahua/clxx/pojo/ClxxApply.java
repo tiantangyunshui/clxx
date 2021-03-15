@@ -10,8 +10,7 @@ import lombok.Data;
 @ApiModel("申请表")
 public class ClxxApply extends Model<ClxxApply> {
     @ApiModelProperty("ID")
-    @TableId("id")
-    private Long id;
+    private String id;
     @ApiModelProperty("学生ID")
     private Long studentId;
     @ApiModelProperty("教师ID")

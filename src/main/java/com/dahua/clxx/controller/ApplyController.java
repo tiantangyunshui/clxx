@@ -27,7 +27,7 @@ public class ApplyController {
     }
 
     @RequestMapping(value = "/info", method = RequestMethod.GET)
-    public Result<ApplyVo> info(@RequestParam("id") Long id){
+    public Result<ApplyVo> info(@RequestParam("id") String id){
         return new Result<>(applyService.queryApplyPage(id));
     }
 

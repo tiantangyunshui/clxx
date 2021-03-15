@@ -11,7 +11,7 @@ import lombok.Data;
 @ApiModel("用户信息")
 public class ClxxUser extends Model<ClxxUser> {
     @ApiModelProperty("id")
-    private long id;
+    private String id;
     @ApiModelProperty("学号")
     private String no;
     @ApiModelProperty("姓名")
