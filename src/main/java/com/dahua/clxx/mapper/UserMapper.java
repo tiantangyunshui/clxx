@@ -11,5 +11,5 @@ public interface UserMapper extends BaseMapper<ClxxUser> {
 
     List<Person> getStudent(String no);
 
-    List<PersonCard> getCard(List<Long> personIds);
+    List<PersonCard> getCard(List<String> personIds);
 }
