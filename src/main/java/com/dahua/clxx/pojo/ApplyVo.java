@@ -15,4 +15,6 @@ public class ApplyVo extends ClxxApply {
     private String studentNo;
     @ApiModelProperty("手机号")
     private String phone;
+    @ApiModelProperty("人脸图像")
+    private String faceImg;
 }

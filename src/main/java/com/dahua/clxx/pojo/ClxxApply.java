@@ -12,9 +12,9 @@ public class ClxxApply extends Model<ClxxApply> {
     @ApiModelProperty("ID")
     private String id;
     @ApiModelProperty("学生ID")
-    private Long studentId;
+    private String studentId;
     @ApiModelProperty("教师ID")
-    private Long teacherId;
+    private String teacherId;
     @ApiModelProperty("类型:0外出，1返校")
     private String type;
     @ApiModelProperty("事由")

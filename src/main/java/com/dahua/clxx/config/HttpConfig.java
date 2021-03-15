@@ -1,6 +1,5 @@
 package com.dahua.clxx.config;
 
-import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
 import org.apache.catalina.Context;
 import org.apache.catalina.connector.Connector;
 import org.apache.tomcat.util.descriptor.web.SecurityCollection;

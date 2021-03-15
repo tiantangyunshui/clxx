@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.dahua.clxx.exception.BusinessRuntimeException;
 import com.dahua.clxx.exception.ErrorUtil;
 import com.dahua.clxx.mapper.ApplyMapper;
+import com.dahua.clxx.mapper.UserMapper;
 import com.dahua.clxx.pojo.*;
 import com.dahua.clxx.service.ApplyService;
 import com.dahua.clxx.service.CardPersonService;
@@ -23,6 +24,9 @@ public class ApplyServiceImpl implements ApplyService {
 
     @Resource
     private ApplyMapper applyMapper;
+
+    @Resource
+    private UserMapper userMapper;
 
     @Resource
     private CardPersonService cardPersonService;
@@ -47,7 +51,6 @@ public class ApplyServiceImpl implements ApplyService {
 
     @Override
     public void addApply(ClxxApplyDto apply) {
-        //TODO 人脸更新至8900
         if(apply.getBase64file()!=null && !"".equals(apply.getBase64file())){
             PersonFaceImgDto img = new PersonFaceImgDto();
             img.setPersonCode(apply.getStudentId()+"");
@@ -55,9 +58,6 @@ public class ApplyServiceImpl implements ApplyService {
             cardPersonService.updFaceImg(img);
         }
         apply.setState("0");
-//        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-//        sdf.setTimeZone(TimeZone.getTimeZone("Asia/Shanghai"));
-//        apply.setCreateTime(sdf.format(new Date()));
         applyMapper.insert(apply);
     }
 
@@ -77,7 +77,15 @@ public class ApplyServiceImpl implements ApplyService {
         if(page.getRecords().size()==0){
             throw new BusinessRuntimeException(500, "数据不存在");
         }
-        return page.getRecords().get(0);
+        ApplyVo vo = page.getRecords().get(0);
+        List<Person> list = userMapper.getStudent(vo.getStudentId());
+        if(list.size()>0) {
+            Person person = list.get(0);
+            if (person.getFaceImg() != null) {
+                vo.setFaceImg(person.getFaceImg());
+            }
+        }
+        return vo;
     }
 
     @Override
