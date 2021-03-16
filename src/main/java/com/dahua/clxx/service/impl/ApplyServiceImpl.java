@@ -12,6 +12,7 @@ import com.dahua.clxx.service.ApplyService;
 import com.dahua.clxx.service.CardPersonService;
 import com.dahua.clxx.util.ExportUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
@@ -30,6 +31,9 @@ public class ApplyServiceImpl implements ApplyService {
 
     @Resource
     private CardPersonService cardPersonService;
+
+    @Value("${dssIp}")
+    private String dssIp;
 
     @Override
     public IPage<ApplyVo> queryApplyPage(ClxxApplyDto apply, int page, int size) {
@@ -82,7 +86,7 @@ public class ApplyServiceImpl implements ApplyService {
         if(list.size()>0) {
             Person person = list.get(0);
             if (person.getFaceImg() != null) {
-                vo.setFaceImg(person.getFaceImg());
+                vo.setFaceImg(person.getFaceImg().replace("serverIp",dssIp));
             }
         }
         return vo;
