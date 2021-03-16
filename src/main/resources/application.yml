@@ -29,7 +29,8 @@ spring:
 #  # 设置数据源
   datasource:
 #    url: jdbc:mysql://10.31.21.169:3306/evo_customization_service
-    url: jdbc:mysql://172.18.11.248/card_solution
+
+    url: jdbc:mysql://172.18.11.246/card_solution
     username: mysql
     password: password
     # 连接池类型
@@ -84,7 +85,7 @@ logging:
       max-history: 3
       max-file-size: 50000KB
 #8900 ip地址 用户名 密码
-dssIp: 172.18.11.248
+dssIp: 172.18.11.246
 dssName: system
 dssPassword: dahua2006
 

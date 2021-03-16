@@ -34,7 +34,7 @@
                 clxx_apply t,
                 (SELECT @num := 0) r
             ORDER BY
-                create_time DESC
+            time_leave DESC
         ) a
         LEFT JOIN clxx_user b ON a.student_id = b. NO
         LEFT JOIN clxx_user c ON a.teacher_id = c. NO
@@ -78,7 +78,7 @@
         <if test ="clxxApply.yearMonth != null and clxxApply.yearMonth !=''">
             and DATE_FORMAT(a.time_leave,'%Y-%m') = #{clxxApply.yearMonth}
         </if>
-        order by a.create_time desc
+        order by a.time_leave desc
     </select>
 
 </mapper>
