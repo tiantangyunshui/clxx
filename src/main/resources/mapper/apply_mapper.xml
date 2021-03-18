@@ -39,19 +39,19 @@
         LEFT JOIN clxx_user b ON a.student_id = b. NO
         LEFT JOIN clxx_user c ON a.teacher_id = c. NO
         where 1=1
-        <if test ="clxxApply.id != null">
+        <if test ="clxxApply.id != null and clxxApply.id !=''">
             and a.id = #{clxxApply.id}
         </if>
-        <if test ="clxxApply.ids != null">
+        <if test ="clxxApply.ids != null and clxxApply.ids !=''">
             and a.id in (${clxxApply.ids})
         </if>
-        <if test ="clxxApply.teacherId != null">
+        <if test ="clxxApply.teacherId != null and clxxApply.teacherId !=''">
             and a.teacher_id = #{clxxApply.teacherId}
         </if>
         <if test ="clxxApply.phone != null and clxxApply.phone !=''">
             and c.phone LIKE CONCAT('%',#{clxxApply.phone},'%')
         </if>
-        <if test ="clxxApply.studentId != null">
+        <if test ="clxxApply.studentId != null and clxxApply.studentId !=''">
             and a.student_id  = #{clxxApply.studentId}
         </if>
         <if test ="clxxApply.studentName != null and clxxApply.studentName !=''">

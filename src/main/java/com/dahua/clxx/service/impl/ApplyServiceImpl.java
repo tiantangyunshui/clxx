@@ -12,6 +12,7 @@ import com.dahua.clxx.service.ApplyService;
 
 import com.dahua.clxx.service.CardPersonService;
 import com.dahua.clxx.util.ExportUtil;
+import com.dahua.clxx.util.SnowflakeIdWorker;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -38,7 +39,7 @@ public class ApplyServiceImpl implements ApplyService {
 
     @Override
     public IPage<ApplyVo> queryApplyPage(ClxxApplyDto apply, int page, int size) {
-        log.info("page:{}\nsize:{}\napply:{}",page,size,apply);
+        log.info("page:{}\nsize:{}\napply1:{}",page,size,JSON.toJSONString(apply));
         if("3".equals(apply.getState())){
             apply.setState(null);
             apply.setStateNull("0");
@@ -63,6 +64,7 @@ public class ApplyServiceImpl implements ApplyService {
             cardPersonService.updFaceImg(img);
         }
         apply.setState("0");
+        apply.setId(new SnowflakeIdWorker(0, 0).nextId()+"");
         applyMapper.insert(apply);
     }
 
@@ -110,22 +112,24 @@ public class ApplyServiceImpl implements ApplyService {
         List<ApplyVo> list = applyMapper.queryApplyPage(new Page<>(1, 500), apply).getRecords();
         log.info("导出的数据：{}", JSON.toJSON(list));
         csvList.add("序号,申请学生学号,申请学生姓名,审批教师姓名,审批教师手机号,外出/返校,出校/返校时间,回校/离校时间,审批结果,权限下发状态");
-        for (ApplyVo vo : list) {
+        for (int i = 0; i < list.size(); i++) {
+            ApplyVo vo = list.get(i);
             if("1".equals(vo.getType())){
                 String temp = vo.getTimeBack();
                 vo.setTimeBack(vo.getTimeLeave());
                 vo.setTimeLeave(temp);
             }
+            vo.setIndex(i+1);
             csvList.add(vo.getIndex()+","
-                +vo.getStudentNo()+","
-                +vo.getStudentName()+","
-                +vo.getTeacherName()+","
-                +vo.getPhone()+","
-                +("0".equals(vo.getType())?"外出":"返校")+","
-                +vo.getTimeLeave()+","
-                +vo.getTimeBack()+","
-                +map.get(vo.getState())+","
-                +map2.get(vo.getAuthorState()));
+                    +vo.getStudentNo()+","
+                    +vo.getStudentName()+","
+                    +vo.getTeacherName()+","
+                    +vo.getPhone()+","
+                    +("0".equals(vo.getType())?"外出":"返校")+","
+                    +vo.getTimeLeave()+","
+                    +vo.getTimeBack()+","
+                    +map.get(vo.getState())+","
+                    +map2.get(vo.getAuthorState()));
         }
         try (final OutputStream os = response.getOutputStream()) {
             ExportUtil.responseSetProperties(fName, response);

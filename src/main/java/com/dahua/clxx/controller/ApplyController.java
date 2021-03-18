@@ -55,7 +55,7 @@ public class ApplyController {
     public Result<String> download(@RequestBody ExportIdsDto dto,HttpServletResponse response) {
         List<String> ids = dto.getIds();
         if(ids.size()>0){
-            applyService.export(ids.stream().collect(Collectors.joining(",")), response);
+            applyService.export(String.join(",", ids), response);
         }
         return new Result<>("报错",500);
     }
