@@ -4,6 +4,6 @@ import lombok.Data;
 
 @Data
 public class PersonFaceImgDto {
-    private String personCode;
+    private String personId;
     private String base64file;
 }

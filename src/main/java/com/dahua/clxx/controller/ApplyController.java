@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /* 类注解 */
 @Api(value = "申请表")
@@ -25,6 +24,11 @@ public class ApplyController {
 
     @RequestMapping(value = "/list", method = RequestMethod.POST)
     public Result<IPage<ApplyVo>> queryApplyPage(@RequestBody ClxxApplyDto apply, @ApiParam(value = "页码" , required=true )@RequestParam("page") int page, @ApiParam(value = "每页条数" , required=true )@RequestParam("size") int size){
+        return new Result<>(applyService.queryApplyPage(apply,page,size));
+    }
+
+    @RequestMapping(value = "/phone/list", method = RequestMethod.POST)
+    public Result<IPage<ApplyVo>> queryApplyPagePhone(@RequestBody ClxxApplyDto apply, @ApiParam(value = "页码" , required=true )@RequestParam("page") int page, @ApiParam(value = "每页条数" , required=true )@RequestParam("size") int size){
         return new Result<>(applyService.queryApplyPage(apply,page,size));
     }
 

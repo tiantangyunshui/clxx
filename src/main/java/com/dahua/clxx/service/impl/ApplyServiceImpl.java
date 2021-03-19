@@ -59,7 +59,7 @@ public class ApplyServiceImpl implements ApplyService {
     public void addApply(ClxxApplyDto apply) {
         if(apply.getBase64file()!=null && !"".equals(apply.getBase64file())){
             PersonFaceImgDto img = new PersonFaceImgDto();
-            img.setPersonCode(apply.getStudentId()+"");
+            img.setPersonId(apply.getStudentId()+"");
             img.setBase64file(apply.getBase64file());
             cardPersonService.updFaceImg(img);
         }

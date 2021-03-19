@@ -14,8 +14,8 @@ public class LoginInterceptor implements HandlerInterceptor{
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler){
 		String token = request.getHeader("token");
-		log.info("token:{}",token);
-		if(token!=null && TokenMap.map.containsKey(token)){
+		log.info("token:{},method:{}",token,request.getMethod());
+		if("OPTIONS".equals(request.getMethod())||(token!=null && TokenMap.map.containsKey(token))){
 			return true;
 		}else {
 			throw new BusinessRuntimeException(401,"未授权");
