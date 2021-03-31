@@ -2,14 +2,16 @@
 server:
   port: 8088
 
-  ssl:
-    key-store: classpath:dahua.keystore
-#    key-alias: https
-    key-store-password: admin12345
+#  ssl:
+#    key-store: classpath:dahua.keystore
+##    key-alias: https
+#    key-store-password: admin12345
 
 #
 spring:
-#  rabbitmq:
+  profiles:
+    active: http
+  #  rabbitmq:
 #    host: 10.35.164.230
 #    port: 5673
 #    username: test
@@ -29,7 +31,6 @@ spring:
 #  # 设置数据源
   datasource:
 #    url: jdbc:mysql://10.31.21.169:3306/evo_customization_service
-
     url: jdbc:mysql://172.18.11.246/card_solution
     username: mysql
     password: password
@@ -71,6 +72,8 @@ mybatis-plus:
     map-underscore-to-camel-case: true
 #    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 
+httpType: httpsa
+
 logging:
   file:
 #    name: D://log/my.log
@@ -101,6 +104,8 @@ white:
     - /login
     - /apply/list
     - /apply/export
+    - /MaterialsSchool/**
+#    - /MaterialsSchool/schoolManage/**
 
 #token的有效期 单位秒（s）
 used: 3600

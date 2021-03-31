@@ -4,6 +4,7 @@ import org.apache.catalina.Context;
 import org.apache.catalina.connector.Connector;
 import org.apache.tomcat.util.descriptor.web.SecurityCollection;
 import org.apache.tomcat.util.descriptor.web.SecurityConstraint;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -12,7 +13,9 @@ import org.springframework.context.annotation.Configuration;
 public class HttpConfig {
 
     @Bean
+    @ConditionalOnProperty(value = "spring.profiles.active",havingValue = "https")
     TomcatServletWebServerFactory tomcatServletWebServerFactory() {
+        System.err.println("==========================");
         TomcatServletWebServerFactory factory = new TomcatServletWebServerFactory(){
             @Override
             protected void postProcessContext(Context context) {

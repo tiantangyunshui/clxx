@@ -1,0 +1,5 @@
+server:
+  ssl:
+    key-store: classpath:dahua.keystore
+#    key-alias: https
+    key-store-password: admin12345
