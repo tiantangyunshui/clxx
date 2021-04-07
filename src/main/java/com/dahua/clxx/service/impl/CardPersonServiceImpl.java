@@ -53,6 +53,9 @@ public class CardPersonServiceImpl implements CardPersonService {
     @Value("${used}")
     private long used;
 
+    @Value("${spring.profiles.active}")
+    private String http;
+
     @Resource
     private RestTemplate restTemplate;
 
@@ -76,7 +79,7 @@ public class CardPersonServiceImpl implements CardPersonService {
 
     @Override
     public boolean updFaceImg(PersonFaceImgDto personFaceDto) {
-        String s = restTemplate.postForObject("http://" + dssIp + PERSON_IMG, personFaceDto, String.class);
+        String s = restTemplate.postForObject(http+"://" + dssIp + PERSON_IMG, personFaceDto, String.class);
         log.info("人脸更新结果：{}", s);
         PersonFaceImgVo vo = JSON.parseObject(s, PersonFaceImgVo.class);
         assert vo != null;
@@ -92,7 +95,7 @@ public class CardPersonServiceImpl implements CardPersonService {
             headers.setContentType(MediaType.APPLICATION_JSON);
             headers.set("Accept", "application/json");
             HttpEntity<Map<String, Object>> httpEntity = new HttpEntity<>(paramMap, headers);
-            String publicKeyResult = restTemplate.postForObject("http://" + dssIp + PUBLIC_KEY, httpEntity, String.class);
+            String publicKeyResult = restTemplate.postForObject(http+"://" + dssIp + PUBLIC_KEY, httpEntity, String.class);
             log.info("publicKeyResult:{}",publicKeyResult);
             if ((publicKeyResult != null && !"".equals(publicKeyResult))) {
                 JSONObject publicKeyResultObject = JSON.parseObject(publicKeyResult);
@@ -100,7 +103,7 @@ public class CardPersonServiceImpl implements CardPersonService {
                 String entryPassword = RSAUtils.encryptBASE64(RSAUtils.encryptByPublicKey(dssPassword.getBytes(), publicKey));
                 paramMap.put("loginPass", entryPassword);
                 httpEntity = new HttpEntity<>(paramMap, headers);
-                String result = restTemplate.postForObject("http://" + dssIp + LOGIN, httpEntity, String.class);
+                String result = restTemplate.postForObject(http+"://" + dssIp + LOGIN, httpEntity, String.class);
                 log.info("result:{}",result);
                 JSONObject tokenResultObject = JSON.parseObject(result);
                 TokenMap.dssToken = tokenResultObject.getString("token");
@@ -178,7 +181,7 @@ public class CardPersonServiceImpl implements CardPersonService {
         Map<String, Object> openCardReq = new HashMap<>();
         openCardReq.put("objectList", openCardList);
         log.info("OPEN_CARD:{}",JSON.toJSON(openCardReq));
-        String rst = restTemplate.postForObject("http://" + dssIp + OPEN_CARD + "?token=" + TokenMap.dssToken, openCardReq, String.class);
+        String rst = restTemplate.postForObject(http+"://" + dssIp + OPEN_CARD + "?token=" + TokenMap.dssToken, openCardReq, String.class);
         log.info("开卡：{}",rst);
     }
 
@@ -204,7 +207,7 @@ public class CardPersonServiceImpl implements CardPersonService {
             doorAuthority.put("cardPrivilegeDetails", cardPrivilegeDetails);
             log.info("DOOR_AUTHORITY:{}",JSON.toJSON(doorAuthority));
             //调一卡通接口授权人脸下发
-            String rst = restTemplate.postForObject("http://" + dssIp + PRIVILIGE_ADD + "?token=" + TokenMap.dssToken, doorAuthority, String.class);
+            String rst = restTemplate.postForObject(http+"://" + dssIp + PRIVILIGE_ADD + "?token=" + TokenMap.dssToken, doorAuthority, String.class);
             log.info("授权：{}",rst);
         }
     }
@@ -228,7 +231,7 @@ public class CardPersonServiceImpl implements CardPersonService {
         temp.put("privilegeType", "3");
         temp.put("cardNums",ll);
         //调一卡通接口权限删除
-        String rst = restTemplate.postForObject("http://" + dssIp + PRIVILIGE_DEL + "?token=" + TokenMap.dssToken, temp, String.class);
+        String rst = restTemplate.postForObject(http+"://" + dssIp + PRIVILIGE_DEL + "?token=" + TokenMap.dssToken, temp, String.class);
         log.info("删除权限：{}",rst);
     }
 }
