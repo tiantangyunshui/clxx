@@ -51,6 +51,7 @@ public class ApplyServiceImpl implements ApplyService {
                 record.setTimeBack(record.getTimeLeave());
                 record.setTimeLeave(temp);
             }
+            record.setFaceImg(record.getFaceImg().replace("serverIp",dssIp));
         }
         return result;
     }

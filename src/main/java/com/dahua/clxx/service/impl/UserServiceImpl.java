@@ -80,4 +80,26 @@ public class UserServiceImpl implements UserService {
             throw new BusinessRuntimeException(401, "token失效");
         }
     }
+
+    @Override
+    public void updUser(ClxxUser user) {
+        Wrapper wrapper = Wrappers.<ClxxUser>lambdaQuery().eq(ClxxUser::getId,user.getId());
+        if(user.getOldPassword()==null || "".equals(user.getOldPassword())){
+            throw new BusinessRuntimeException(500, "原密码不能为空");
+        }
+        if(user.getPassword()==null || "".equals(user.getPassword())){
+            throw new BusinessRuntimeException(500, "密码不能为空");
+        }
+        List<ClxxUser> ll = userMapper.selectList(wrapper);
+        if(ll.size() == 0){
+            throw new BusinessRuntimeException(500, "用户不存在");
+        }
+        if(!user.getOldPassword().equals(ll.get(0).getPassword())){
+            throw new BusinessRuntimeException(500, "原密码输入错误");
+        }
+        int index = userMapper.updateById(user);
+        if(index == 0){
+            throw new BusinessRuntimeException(500, "更新失败");
+        }
+    }
 }

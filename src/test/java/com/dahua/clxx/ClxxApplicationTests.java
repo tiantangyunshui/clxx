@@ -1,5 +1,7 @@
 package com.dahua.clxx;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
@@ -51,6 +53,8 @@ class ClxxApplicationTests {
 
     @Test
     void contextLoads() {
+
+        System.out.println("=");
 
 //        cardPersonService.refreshDssToken();
 ////        cardPersonService.addPrivilige();
@@ -118,7 +122,7 @@ class ClxxApplicationTests {
 //        List<ApplyVo> records = userIPage.getRecords();
 //        System.out.println(records.size());
 //        System.out.println(records);
-        cardPersonService.addPrivilige();
+//        cardPersonService.addPrivilige();
 //        cardPersonService.removePrivilige();
     }
 

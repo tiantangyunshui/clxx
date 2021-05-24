@@ -26,4 +26,9 @@ public interface UserService {
      * 获取学生信息
      */
     Person getStudentByToken(String Token);
+
+    /**
+     * 修改用户密码
+     */
+    void updUser(ClxxUser user);
 }

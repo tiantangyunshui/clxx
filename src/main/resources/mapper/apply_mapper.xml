@@ -25,7 +25,8 @@
             a.remark1,
             a.remark2,
             a.remark3,
-            a.remark4
+            a.remark4,
+            d.face_path faceImg
         FROM(
             SELECT
                 @num :=@num + 1 AS `index`,
@@ -38,6 +39,7 @@
         ) a
         LEFT JOIN clxx_user b ON a.student_id = b. NO
         LEFT JOIN clxx_user c ON a.teacher_id = c. NO
+        LEFT JOIN card_person_photo d ON a. student_id = d.PERSON_ID
         where 1=1
         <if test ="clxxApply.id != null and clxxApply.id !=''">
             and a.id = #{clxxApply.id}
