@@ -54,7 +54,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<ClxxUser> getTeacher(String phone) {
-        Wrapper wrapper = Wrappers.<ClxxUser>lambdaQuery().like(ClxxUser::getPhone,phone);
+        Wrapper<ClxxUser> wrapper = Wrappers.<ClxxUser>lambdaQuery().like(ClxxUser::getPhone,phone);
         List<ClxxUser> ll = userMapper.selectList(wrapper);
         for (ClxxUser user : ll) {
             user.setPassword(null);
@@ -83,7 +83,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void updUser(ClxxUser user) {
-        Wrapper wrapper = Wrappers.<ClxxUser>lambdaQuery().eq(ClxxUser::getId,user.getId());
+        Wrapper<ClxxUser> wrapper = Wrappers.<ClxxUser>lambdaQuery().eq(ClxxUser::getId,user.getId());
         if(user.getOldPassword()==null || "".equals(user.getOldPassword())){
             throw new BusinessRuntimeException(500, "原密码不能为空");
         }

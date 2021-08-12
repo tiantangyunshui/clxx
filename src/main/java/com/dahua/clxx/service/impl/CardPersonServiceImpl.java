@@ -116,7 +116,6 @@ public class CardPersonServiceImpl implements CardPersonService {
 
     @Override
     public void addPrivilige() {
-        //TODO 判断是否开卡，授权
         //查询当天需要授权的申请
         Wrapper<ClxxApply> wrapper = Wrappers.<ClxxApply>lambdaQuery().apply("date_format(time_back,'%Y-%m-%d') = '"+new SimpleDateFormat("yyyy-MM-dd").format(new Date())+"'");
         List<ClxxApply> list = new ArrayList<>(100);
@@ -124,7 +123,7 @@ public class CardPersonServiceImpl implements CardPersonService {
         List<PersonCard> cards = userMapper.getCard(list.stream().map(ClxxApply::getStudentId).collect(Collectors.toList()));
         List<Long> psersonCodes = cards.stream().map(PersonCard::getPersonCode).collect(Collectors.toList());
         //没有开过卡的学生，重新开卡
-        List<ClxxApply> ll = list.stream().filter(a-> !psersonCodes.contains(a.getStudentId())).collect(Collectors.toList());
+        List<ClxxApply> ll = list.stream().filter(a-> !psersonCodes.contains(Long.valueOf(a.getStudentId()))).collect(Collectors.toList());
         openCard(ll);
         //授权
         cardPriviligeAdd(list);
@@ -136,7 +135,6 @@ public class CardPersonServiceImpl implements CardPersonService {
         List<ClxxApply> list = new ArrayList<>(100);
         getApply(wrapper,1,list);
         log.info("移除权限的列表：{}", list);
-        //TODO 移除权限
         cardPriviligeDel(list);
     }
 
